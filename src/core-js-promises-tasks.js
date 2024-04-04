@@ -134,13 +134,10 @@ function getAllResult(promises) {
  * [promise1, promise4, promise3, promise2] => Promise.resolved('10403020')
  */
 function queuPromises(promises) {
-  let result = '';
-  promises.forEach(async (promise) => {
-    await promise.then((res) => {
-      result += `${res}`;
-    });
-  });
-  return Promise.resolve(result);
+  const ClassHelper = Promise;
+  return ClassHelper.all(promises).then((values) =>
+    Promise.resolve(values.join(''))
+  );
 }
 
 module.exports = {
